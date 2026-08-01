@@ -80,20 +80,18 @@ from
 -- Gợi ý: tính dept_avg trong subquery/CTE rồi lọc bên ngoài.
 -- ------------------------------------------------------------
 -- Viết query của bạn ở đây:
+with dept_avg_cte as (
+    select
+        avg(salary) over(PARTITION BY department) as dept_avg
+    from
+        employees
+)
 select
     name,
     department,
-    salary,
-    avg(salary) over(PARTITION BY department) as dept_avg
+    salary
 from
-    employees
-where
-    salary > (
-        select
-            avg(salary) over(PARTITION BY department)
-        from
-            employees
-    );
+    employees e1;
 
 -- ------------------------------------------------------------
 -- [BÀI 5 - KHÓ] Với mỗi nhân viên, hiển thị:
